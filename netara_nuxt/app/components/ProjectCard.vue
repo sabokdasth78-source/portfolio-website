@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="`/projects/${project.id}`" class="block group relative bg-white/80 dark:bg-slate-900/60 backdrop-blur-md rounded-[2rem] border border-slate-200/80 dark:border-white/10 overflow-hidden hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_-15px_rgba(6,182,212,0.2)]">
+  <NuxtLink :to="`/projects/${project.id}`" class="block group relative bg-white/80 dark:bg-slate-900/60 backdrop-blur-md rounded-[2rem] border border-slate-200/80 dark:border-white/10 overflow-hidden hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_-15px_rgba(6,182,212,0.2)]" :dir="lang === 'en' ? 'ltr' : 'rtl'">
     
     <!-- مدیا (فقط عکس) -->
     <div class="relative h-60 overflow-hidden">
@@ -13,7 +13,7 @@
       
       <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
         <span class="w-full text-center py-2.5 rounded-xl bg-cyan-500/90 text-white text-sm font-bold backdrop-blur-sm transition-colors transform translate-y-4 group-hover:translate-y-0 duration-500">
-          مشاهده جزئیات
+          {{ t.viewDetails }}
         </span>
       </div>
     </div>
@@ -38,12 +38,22 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRuntimeConfig } from '#app'
+import { useRuntimeConfig, useCookie } from '#app'
 
 const props = defineProps({
   project: {
     type: Object,
     required: true
+  }
+})
+
+const lang = useCookie('lang', { default: () => 'fa' })
+
+const t = computed(() => {
+  return lang.value === 'en' ? {
+    viewDetails: 'View Details'
+  } : {
+    viewDetails: 'مشاهده جزئیات'
   }
 })
 

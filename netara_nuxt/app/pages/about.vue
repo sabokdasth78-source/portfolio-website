@@ -7,23 +7,23 @@
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-12 items-center">
         <!-- Text Content -->
-        <div class="lg:col-span-7 space-y-6 md:space-y-8 animate-fade-up order-2 lg:order-1 text-center lg:text-right">
+        <div class="lg:col-span-7 space-y-6 md:space-y-8 animate-fade-up order-2 lg:order-1 text-center lg:text-start">
           <div class="inline-block px-4 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs md:text-sm font-semibold border border-purple-200 dark:border-purple-800/50 shadow-sm">
-            👋 سلام، به دنیای من خوش آمدید
+            {{ t.badge }}
           </div>
           <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight text-slate-900 dark:text-white">
-            من یک توسعه‌دهنده و طراح هستم که <br class="hidden md:block" />
-            <span class="text-transparent bg-clip-text bg-gradient-to-l from-cyan-500 to-purple-600">کدها را با هنر</span> ترکیب می‌کنم.
+            {{ t.heroTitle1 }} <br class="hidden md:block" />
+            <span class="text-transparent bg-clip-text bg-gradient-to-l from-cyan-500 to-purple-600">{{ t.heroTitleHighlight }}</span> {{ t.heroTitle2 }}
           </h1>
-          <p class="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed text-justify lg:text-right">
-            تخصص من تبدیل ایده‌های خام به محصولات دیجیتالِ زیبا، سریع و کاربردی است. من معتقدم که یک وب‌سایت موفق فقط نباید کدهای بی‌نقصی داشته باشد، بلکه باید تجربه‌ای لذت‌بخش برای کاربر خلق کند. به همین دلیل، من هم در زمینه طراحی بصری (UI/UX و گرافیک) و هم در برنامه‌نویسی سمت کاربر و سرور مهارت کسب کرده‌ام تا بتوانم صفر تا صد یک پروژه را با بالاترین کیفیت پیاده‌سازی کنم.
+          <p class="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed text-justify lg:text-start">
+            {{ t.heroDesc }}
           </p>
           <div class="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4 pt-4">
             <NuxtLink to="/projects/projects" class="w-full sm:w-auto text-center px-8 py-3 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-bold hover:shadow-lg hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-1">
-              مشاهده نمونه‌کارها
+              {{ t.btnPortfolio }}
             </NuxtLink>
             <NuxtLink to="/contact" class="w-full sm:w-auto text-center px-8 py-3 rounded-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-slate-300 dark:border-white/20 text-slate-700 dark:text-white font-bold hover:bg-slate-100 dark:hover:bg-slate-700 transition-all transform hover:-translate-y-1">
-              ارتباط با من
+              {{ t.btnContact }}
             </NuxtLink>
           </div>
         </div>
@@ -32,10 +32,7 @@
         <div class="lg:col-span-5 relative animate-fade-up delay-100 order-1 lg:order-2 max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-none mx-auto w-full">
           <div class="aspect-square rounded-full bg-gradient-to-tr from-cyan-400 to-purple-500 p-1.5 shadow-2xl relative overflow-hidden">
             <div class="w-full h-full bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center overflow-hidden relative">
-              
-              <!-- تصویر شما -->
-              <img src="/about.png" alt="درباره من" class="w-full h-full object-cover" />
-
+              <img src="/about.png" :alt="t.imageAlt" class="w-full h-full object-cover" />
             </div>
           </div>
           <!-- Decorative Elements -->
@@ -48,8 +45,8 @@
     <!-- Skills Section -->
     <section class="animate-fade-up delay-200">
       <div class="text-center mb-10 md:mb-12">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 md:mb-4">جعبه ابزار <span class="text-cyan-500">تخصصی</span> من</h2>
-        <p class="text-sm md:text-base text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">تکنولوژی‌ها و ابزارهایی که برای خلق بهترین تجربه‌های کاربری استفاده می‌کنم.</p>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 md:mb-4">{{ t.skillsTitle1 }} <span class="text-cyan-500">{{ t.skillsTitleHighlight }}</span></h2>
+        <p class="text-sm md:text-base text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">{{ t.skillsDesc }}</p>
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
@@ -66,22 +63,22 @@
 
     <!-- Approach / Work Flow -->
     <section class="bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md rounded-[2rem] md:rounded-[2.5rem] p-6 sm:p-10 md:p-16 border border-slate-200 dark:border-white/5 animate-fade-up delay-300">
-      <h2 class="text-2xl sm:text-3xl font-bold text-center text-slate-900 dark:text-white mb-8 md:mb-12">چگونه کار می‌کنم؟</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 lg:gap-12 text-center md:text-right">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center text-slate-900 dark:text-white mb-8 md:mb-12">{{ t.workflowTitle }}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 lg:gap-12 text-center md:text-start">
         <div class="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
           <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-pink-100 dark:bg-pink-900/30 text-pink-500 flex items-center justify-center text-lg md:text-xl font-bold border border-pink-200 dark:border-pink-800/50">۱</div>
-          <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white">طراحی و ایده‌پردازی</h3>
-          <p class="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed max-w-xs md:max-w-none">ابتدا با استفاده از اصول UI/UX و طراحی گرافیک، نمای بصری و ساختار تعاملی پروژه را ترسیم می‌کنم تا بهترین مسیر برای کاربر خلق شود.</p>
+          <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white">{{ t.step1Title }}</h3>
+          <p class="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed max-w-xs md:max-w-none">{{ t.step1Desc }}</p>
         </div>
         <div class="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
           <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-500 flex items-center justify-center text-lg md:text-xl font-bold border border-cyan-200 dark:border-cyan-800/50">۲</div>
-          <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white">توسعه فرانت‌اند</h3>
-          <p class="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed max-w-xs md:max-w-none">با بهره‌گیری از Nuxt/Vue یا Next/React به همراه Tailwind CSS، طرح‌ها را به کدهای زنده، ریسپانسیو و بهینه‌سازی شده تبدیل می‌کنم.</p>
+          <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white">{{ t.step2Title }}</h3>
+          <p class="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed max-w-xs md:max-w-none">{{ t.step2Desc }}</p>
         </div>
         <div class="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
           <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-500 flex items-center justify-center text-lg md:text-xl font-bold border border-emerald-200 dark:border-emerald-800/50">۳</div>
-          <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white">پیاده‌سازی بک‌اند</h3>
-          <p class="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed max-w-xs md:max-w-none">با استفاده از قدرت Django (Python)، منطق تجاری، پایگاه داده و APIهای قدرتمند و امن را برای پشتیبانی از سیستم توسعه می‌دهم.</p>
+          <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white">{{ t.step3Title }}</h3>
+          <p class="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed max-w-xs md:max-w-none">{{ t.step3Desc }}</p>
         </div>
       </div>
     </section>
@@ -90,12 +87,64 @@
 </template>
 
 <script setup>
-useHead({
-  title: 'درباره من | توسعه دهنده و طراح',
-  meta: [
-    { name: 'description', content: 'با من و مهارت‌های توسعه وب، طراحی UI/UX و گرافیک بیشتر آشنا شوید.' }
-  ]
+import { computed } from 'vue'
+import { useCookie, useHead } from '#app'
+
+const lang = useCookie('lang', { default: () => 'fa' })
+
+// دیکشنری دو زبانه
+const t = computed(() => {
+  return lang.value === 'en' ? {
+    badge: '👋 Hello, welcome to my world',
+    heroTitle1: 'I am a developer and designer who',
+    heroTitleHighlight: 'combines code',
+    heroTitle2: 'with art.',
+    heroDesc: 'My expertise is turning raw ideas into beautiful, fast, and practical digital products. I believe that a successful website shouldn\'t just have flawless code, but should also create a pleasant experience for the user. For this reason, I have gained skills in both visual design (UI/UX and graphics) and client/server-side programming to be able to implement a project from A to Z with the highest quality.',
+    btnPortfolio: 'View Portfolio',
+    btnContact: 'Contact Me',
+    imageAlt: 'About Me',
+    skillsTitle1: 'My Professional',
+    skillsTitleHighlight: 'Toolkit',
+    skillsDesc: 'Technologies and tools I use to create the best user experiences.',
+    workflowTitle: 'How I Work?',
+    step1Title: 'Design & Ideation',
+    step1Desc: 'First, using UI/UX principles and graphic design, I draw the visual layout and interactive structure of the project to create the best path for the user.',
+    step2Title: 'Frontend Development',
+    step2Desc: 'Utilizing Nuxt/Vue or Next/React along with Tailwind CSS, I turn designs into live, responsive, and optimized codes.',
+    step3Title: 'Backend Implementation',
+    step3Desc: 'Using the power of Django (Python), I develop business logic, databases, and powerful, secure APIs to support the system.',
+    metaTitle: 'About Me | Developer & Designer',
+    metaDesc: 'Learn more about me and my web development, UI/UX, and graphic design skills.'
+  } : {
+    badge: '👋 سلام، به دنیای من خوش آمدید',
+    heroTitle1: 'من یک توسعه‌دهنده و طراح هستم که',
+    heroTitleHighlight: 'کدها را با هنر',
+    heroTitle2: 'ترکیب می‌کنم.',
+    heroDesc: 'تخصص من تبدیل ایده‌های خام به محصولات دیجیتالِ زیبا، سریع و کاربردی است. من معتقدم که یک وب‌سایت موفق فقط نباید کدهای بی‌نقصی داشته باشد، بلکه باید تجربه‌ای لذت‌بخش برای کاربر خلق کند. به همین دلیل، من هم در زمینه طراحی بصری (UI/UX و گرافیک) و هم در برنامه‌نویسی سمت کاربر و سرور مهارت کسب کرده‌ام تا بتوانم صفر تا صد یک پروژه را با بالاترین کیفیت پیاده‌سازی کنم.',
+    btnPortfolio: 'مشاهده نمونه‌کارها',
+    btnContact: 'ارتباط با من',
+    imageAlt: 'درباره من',
+    skillsTitle1: 'جعبه ابزار',
+    skillsTitleHighlight: 'تخصصی من',
+    skillsDesc: 'تکنولوژی‌ها و ابزارهایی که برای خلق بهترین تجربه‌های کاربری استفاده می‌کنم.',
+    workflowTitle: 'چگونه کار می‌کنم؟',
+    step1Title: 'طراحی و ایده‌پردازی',
+    step1Desc: 'ابتدا با استفاده از اصول UI/UX و طراحی گرافیک، نمای بصری و ساختار تعاملی پروژه را ترسیم می‌کنم تا بهترین مسیر برای کاربر خلق شود.',
+    step2Title: 'توسعه فرانت‌اند',
+    step2Desc: 'با بهره‌گیری از Nuxt/Vue یا Next/React به همراه Tailwind CSS، طرح‌ها را به کدهای زنده، ریسپانسیو و بهینه‌سازی شده تبدیل می‌کنم.',
+    step3Title: 'پیاده‌سازی بک‌اند',
+    step3Desc: 'با استفاده از قدرت Django (Python)، منطق تجاری، پایگاه داده و APIهای قدرتمند و امن را برای پشتیبانی از سیستم توسعه می‌دهم.',
+    metaTitle: 'درباره من | توسعه دهنده و طراح',
+    metaDesc: 'با من و مهارت‌های توسعه وب، طراحی UI/UX و گرافیک بیشتر آشنا شوید.'
+  }
 })
+
+useHead(() => ({
+  title: t.value.metaTitle,
+  meta: [
+    { name: 'description', content: t.value.metaDesc }
+  ]
+}))
 
 const professionalSkills = [
   { name: 'Nuxt 3', category: 'Framework', gradient: 'from-green-400 to-green-600', iconText: 'Nx' },

@@ -1,5 +1,6 @@
 <template>
-  <div class="relative min-h-screen text-slate-900 dark:text-slate-50 font-sans selection:bg-purple-500 selection:text-white flex flex-col pt-20 transition-colors duration-300">
+  <!-- افزودن دایرکشن داینامیک به تگ پدر -->
+  <div :dir="currentDir" class="relative min-h-screen text-slate-900 dark:text-slate-50 font-sans selection:bg-purple-500 selection:text-white flex flex-col pt-20 transition-colors duration-300">
     
     <!-- پس‌زمینه جذاب و مدرن -->
     <div class="fixed inset-0 z-[-1] bg-slate-50 dark:bg-slate-950 transition-colors duration-300"></div>
@@ -10,10 +11,27 @@
 
     <NavBar />
     
-    <main class="flex-grow container mx-auto px-6 py-12" dir="rtl">
+    <!-- حذف dir="rtl" سخت‌کد شده از main -->
+    <main class="flex-grow container mx-auto px-6 py-12">
       <slot />
     </main>
 
     <SiteFooter />
   </div>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+
+// خواندن زبان از کوکی (پیش‌فرض: فارسی)
+const lang = useCookie('lang', { default: () => 'fa' })
+const currentDir = computed(() => lang.value === 'en' ? 'ltr' : 'rtl')
+
+// اعمال مستقیم دایرکشن و زبان روی تگ HTML برای سئو و استایل‌های ریشه
+useHead({
+  htmlAttrs: {
+    lang: lang,
+    dir: currentDir
+  }
+})
+</script>

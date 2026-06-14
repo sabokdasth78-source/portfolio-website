@@ -1,9 +1,9 @@
 <template>
   <div class="container mx-auto px-4 py-12">
-    <h1 class="text-4xl font-bold text-center mb-10 dark:text-white">وبلاگ</h1>
+    <h1 class="text-4xl font-bold text-center mb-10 dark:text-white">{{ t.title }}</h1>
 
-    <div v-if="pending" class="text-center">در حال بارگذاری...</div>
-    <div v-else-if="error" class="text-red-500 text-center">خطا در دریافت اطلاعات</div>
+    <div v-if="pending" class="text-center">{{ t.loading }}</div>
+    <div v-else-if="error" class="text-red-500 text-center">{{ t.error }}</div>
     
     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <NuxtLink 
@@ -26,9 +26,25 @@
 </template>
 
 <script setup>
-import { useRuntimeConfig } from '#app'
+import { computed } from 'vue'
+import { useRuntimeConfig, useCookie, useFetch } from '#app'
 
 const config = useRuntimeConfig()
+const lang = useCookie('lang', { default: () => 'fa' })
+
+// دیکشنری دو زبانه
+const t = computed(() => {
+  return lang.value === 'en' ? {
+    title: 'Blog',
+    loading: 'Loading...',
+    error: 'Error fetching data'
+  } : {
+    title: 'وبلاگ',
+    loading: 'در حال بارگذاری...',
+    error: 'خطا در دریافت اطلاعات'
+  }
+})
+
 const { data: posts, pending, error } = await useFetch('/blog/posts/', {
   baseURL: config.public.apiBase
 })
