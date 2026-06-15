@@ -94,7 +94,7 @@ const handleRegister = async () => {
   
   try {
     await $fetch('/register/', {
-      baseURL: config.public.apiBase || 'http://localhost:8000',
+      baseURL: config.public.apiBase || `${config.public.apiBase}`,
       method: 'POST',
       body: { username: username.value, password: password.value }
     })

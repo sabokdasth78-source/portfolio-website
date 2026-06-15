@@ -11,8 +11,10 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: 'http://127.0.0.1:8000/api',   // یا دامنهٔ سرور
-      apiBaseHost: 'http://127.0.0.1:8000'    // برای چسباندن URL فایل‌های media
+      // فقط مقادیر پیش‌فرض (لوکال) را اینجا می‌نویسیم
+      // در محیط پروداکشن، Nuxt به‌طور خودکار مقادیر فایل env. را جایگزین می‌کند
+      apiBase: 'http://127.0.0.1:8000/api', 
+      apiBaseHost: 'http://127.0.0.1:8000'
     }
   }
 });

@@ -87,7 +87,7 @@ const handleLogin = async () => {
   
   try {
     const response = await $fetch('/login/', {
-      baseURL: config.public.apiBase || 'http://localhost:8000',
+      baseURL: config.public.apiBase || `${config.public.apiBase}`,
       method: 'POST',
       body: { username: username.value, password: password.value }
     })

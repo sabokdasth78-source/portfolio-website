@@ -200,7 +200,7 @@ const submitForm = async () => {
       headers['Authorization'] = `Bearer ${accessToken.value}`
     }
 
-    await $fetch('http://localhost:8000/api/requests/', {
+    await $fetch(`${config.public.apiBase}/requests/`, {
       method: 'POST',
       headers,
       body: form.value

@@ -195,7 +195,7 @@ const pendingRequests = ref(true)
 // دریافت درخواست‌ها از API
 const fetchRequests = async () => {
   try {
-    const response = await $fetch('http://localhost:8000/api/requests/', {
+    const response = await $fetch(`${config.public.apiBase}/requests/`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${accessToken.value}`
@@ -225,7 +225,7 @@ const handleChangePassword = async () => {
   passPending.value = true
   
   try {
-    const response = await $fetch('http://localhost:8000/api/change-password/', {
+    const response = await $fetch(`${config.public.apiBase}/change-password/`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken.value}`

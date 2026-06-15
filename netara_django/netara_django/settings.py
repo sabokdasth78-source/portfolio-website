@@ -14,10 +14,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)uc^38pyf*7&q*skx*k@pdwg369fv#ztcob_1-f@z0fp_2f$gv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True # برای امنیت سرور حتما باید False باشد
 
-ALLOWED_HOSTS = []
-CORS_ALLOW_ALL_ORIGINS = True
+# آدرس ساب‌دامین بک‌اند خود را اینجا وارد کنید (لوکال‌هاست برای تست نگه داشته شده است)
+ALLOWED_HOSTS = ['api.netaraweb.ir', 'www.api.netaraweb.ir', 'localhost', '127.0.0.1']
+
+# این گزینه حذف شد زیرا در پروداکشن نباید به همه اجازه دسترسی داد.
+# کنترل دسترسی از طریق CORS_ALLOWED_ORIGINS انجام می‌شود.
 
 
 # Application definition
@@ -31,7 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'rest_framework',
-    'rest_framework_simplejwt', # این مورد جا مانده بود
+    'rest_framework_simplejwt',
     'corsheaders',
     'accounts',
     'portfolio',
@@ -55,8 +58,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# آدرس فرانت‌اند (ناکست) شما که اجازه دارد به این بک‌اند درخواست بفرستد
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "https://netaraweb.ir",
+    "https://www.netaraweb.ir",
+    "http://localhost:3000", # نگه داشته شده برای تست احتمالی
 ]
 
 ROOT_URLCONF = 'netara_django.urls'
@@ -72,6 +78,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -136,6 +143,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+# این خط برای اعمال CSS ها در پنل ادمین هنگام آپلود روی هاست ضروری است
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 

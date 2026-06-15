@@ -17,7 +17,7 @@
             <span v-html="t.heroDesc"></span>
           </p>
           <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
-            <NuxtLink to="/projects/projects" class="w-full sm:w-auto text-center px-8 py-3 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold hover:bg-slate-800 dark:hover:bg-slate-200 transition-all transform hover:-translate-y-1 shadow-xl hover:shadow-cyan-500/25">
+            <NuxtLink to="/projects" class="w-full sm:w-auto text-center px-8 py-3 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold hover:bg-slate-800 dark:hover:bg-slate-200 transition-all transform hover:-translate-y-1 shadow-xl hover:shadow-cyan-500/25">
               {{ t.btnPortfolio }}
             </NuxtLink>
             <NuxtLink to="/about" class="w-full sm:w-auto text-center px-8 py-3 rounded-full bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-300 dark:border-white/20 text-slate-700 dark:text-white font-bold hover:bg-slate-100 dark:hover:bg-white/10 transition-all transform hover:-translate-y-1 shadow-sm">
@@ -44,7 +44,7 @@
     </section>
 
     <!-- Image Slider Section -->
-    <section class="animate-fade-up delay-100 px-4 md:px-0">
+    <section class="animate-fade-up delay-100 w-screen relative left-1/2 -translate-x-1/2">
       <swiper
         :modules="modules"
         :spaceBetween="0"
@@ -54,15 +54,18 @@
         :effect="'fade'"
         :pagination="{ clickable: true }"
         :navigation="true"
-        class="w-full max-w-7xl mx-auto rounded-[1.5rem] md:rounded-[2rem] overflow-hidden bg-transparent shadow-none border-none md:shadow-2xl md:border md:border-slate-200/50 dark:md:border-white/5 md:bg-slate-50/30 dark:md:bg-slate-900/30 md:backdrop-blur-sm relative z-0 [&_.swiper-button-next]:hidden md:[&_.swiper-button-next]:flex [&_.swiper-button-prev]:hidden md:[&_.swiper-button-prev]:flex [&_.swiper-pagination]:hidden md:[&_.swiper-pagination]:block"
+        class="w-full relative z-0 [&_.swiper-button-next]:hidden md:[&_.swiper-button-next]:flex [&_.swiper-button-prev]:hidden md:[&_.swiper-button-prev]:flex [&_.swiper-pagination]:hidden md:[&_.swiper-pagination]:block"
       >
         <swiper-slide v-for="(img, index) in imageSlides" :key="'img'+index">
-          <NuxtLink :to="img.link" class="block w-full h-[250px] sm:h-[400px] md:h-[600px] lg:h-[705px] relative z-10 cursor-pointer">
-            <img :src="img.src" class="w-full h-full object-contain transition-transform duration-1000 hover:scale-[1.02]" alt="Slider Image" />
+          <!-- حذف ارتفاع ثابت و استفاده از w-full h-auto -->
+          <NuxtLink :to="img.link" class="flex items-center justify-center w-full relative z-10 cursor-pointer overflow-hidden">
+            <!-- تغییر object-cover به w-full و h-auto برای حفظ تناسب عکس -->
+            <img :src="img.src" class="w-full h-auto max-h-[85vh] object-contain transition-transform duration-1000 hover:scale-[1.02]" alt="Slider Image" />
           </NuxtLink>
         </swiper-slide>
       </swiper>
     </section>
+
 
     <!-- Skills Section -->
     <section class="py-12 md:py-16 relative bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md rounded-3xl border border-slate-200 dark:border-white/5 animate-fade-up delay-200 shadow-sm mx-4 md:mx-0">
@@ -92,7 +95,7 @@
           </h2>
           <p class="text-sm md:text-base text-slate-500 dark:text-slate-400">{{ t.projectsDesc }}</p>
         </div>
-        <NuxtLink to="/projects/projects" class="flex text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 text-sm font-medium items-center gap-1 group">
+        <NuxtLink to="/projects" class="flex text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 text-sm font-medium items-center gap-1 group">
           {{ t.viewAll }} 
           <svg class="w-4 h-4 rtl:rotate-180 transform ltr:group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
         </NuxtLink>
@@ -264,10 +267,10 @@ const videoSlides = [
 ];
 
 const imageSlides = [
-  { src: '/sliders/slider4.jpg', link: '/contact' }, 
-  { src: '/sliders/slider3.png', link: '/projects' },          
-  { src: '/sliders/slider2.png', link: '/contact' }, 
-  { src: '/sliders/slider1.png', link: '/projects' }           
+  { src: '/sliders/slider4.webp', link: '/contact' }, 
+  { src: '/sliders/slider3.webp', link: '/projects' },          
+  { src: '/sliders/slider2.webp', link: '/contact' }, 
+  { src: '/sliders/slider1.webp', link: '/projects' }           
 ];
 
 const config = useRuntimeConfig()
