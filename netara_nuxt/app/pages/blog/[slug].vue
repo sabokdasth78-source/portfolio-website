@@ -91,8 +91,8 @@ const t = computed(() => {
   }
 })
 
-// فراخوانی جزئیات مقاله از بک‌اند به همراه اصلاح اسلاگ فارسی
-const { data: post, pending, error } = await useFetch(`/blog/posts/${encodeURIComponent(route.params.slug)}/`, {
+// فراخوانی جزئیات مقاله از بک‌اند بدون انکود اضافی
+const { data: post, pending, error } = await useFetch(`/blog/posts/${route.params.slug}/`, {
   baseURL: config.public.apiBase
 })
 
