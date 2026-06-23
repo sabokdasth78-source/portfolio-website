@@ -428,8 +428,8 @@ const translatedProcess = computed(() => {
 const translatedStats = computed(() => {
   const isEn = lang.value === 'en'
   return [
-    { value: '+5', label: isEn ? 'Years Experience' : 'سال تجربه حرفه‌ای' },
-    { value: '+30', label: isEn ? 'Completed Projects' : 'پروژه موفق' },
+    { value: '+3', label: isEn ? 'Years Experience' : 'سال تجربه حرفه‌ای' },
+    { value: '+10', label: isEn ? 'Completed Projects' : 'پروژه موفق' },
     { value: '100%', label: isEn ? 'Client Satisfaction' : 'رضایت مشتریان' },
     { value: '+50k', label: isEn ? 'Lines of Code' : 'خط کد نوشته شده' }
   ]

@@ -1,0 +1,35 @@
+name: Deploy Nuxt Site
+
+on:
+  push:
+    branches:
+      - main  # اگر نام برنچ اصلی شما master است، این کلمه را به master تغییر دهید
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # می‌توانید نسخه نود متناسب با سیستم خود را اینجا بنویسید (مثلا 18)
+
+      - name: 📦 Install Dependencies
+        run: npm install
+
+      - name: 🔨 Build Nuxt Project
+        run: npm run generate
+
+      - name: 🚀 Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: .output/public/ # پوشه خروجی Nuxt 3 بعد از دستور generate
+          server-dir: / # مسیری در هاست که فایل‌ها باید آنجا قرار بگیرند
+          danger-action: replace # برای جایگزینی فایل‌های جدید با قدیمی

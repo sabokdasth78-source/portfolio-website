@@ -16,5 +16,10 @@ export default defineNuxtConfig({
       apiBase: 'http://127.0.0.1:8000/api', 
       apiBaseHost: 'http://127.0.0.1:8000'
     }
+  },
+  nitro: {
+    prerender: {
+      failOnError: false
+    }
   }
 });
