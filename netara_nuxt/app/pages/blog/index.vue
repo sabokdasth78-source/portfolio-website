@@ -12,7 +12,8 @@
         :to="`/blog/${post.slug}`"
         class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:-translate-y-2 transition-transform duration-300"
       >
-        <img v-if="post.image" :src="post.image" :alt="post.title" class="w-full h-48 object-cover">
+        <!-- اصلاح آدرس تصویر با استفاده از getMediaUrl -->
+        <img v-if="post.image" :src="getMediaUrl(post.image)" :alt="post.title" class="w-full h-48 object-cover">
         <div class="p-6">
           <h2 class="text-xl font-bold mb-3 dark:text-white">{{ post.title }}</h2>
           <!-- تگ‌های HTML و کاراکترهای اضافی در اینجا حذف می‌شوند -->
@@ -45,7 +46,26 @@ const t = computed(() => {
   }
 })
 
+// تابع اصلاح آدرس تصاویر
+const getMediaUrl = (path) => {
+  if (!path) return null
+  try {
+    if (path.startsWith('http')) {
+      const urlObj = new URL(path)
+      return `${config.public.apiBaseHost}${urlObj.pathname}`
+    }
+    return `${config.public.apiBaseHost}${path}`
+  } catch (e) {
+    return path
+  }
+}
+
+// واکشی لیست مقالات با هندل کردن pagination بک‌اند
 const { data: posts, pending, error } = await useFetch('/blog/posts/', {
-  baseURL: config.public.apiBase
+  baseURL: config.public.apiBase,
+  transform: (response) => {
+    // اگر جنگو دیتا را درون results می‌ریزد (به دلیل صفحه بندی)، آن را استخراج کن
+    return response.results ? response.results : response
+  }
 })
 </script>
