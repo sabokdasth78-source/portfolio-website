@@ -15,29 +15,41 @@
           <svg v-else class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
 
-        <!-- لینک‌های مسیر (دسکتاپ) -->
+        <!-- لینک‌های مسیر (دسکتاپ) - دکمه خدمات حذف شده است -->
         <div class="hidden md:flex gap-4 sm:gap-6 text-sm md:text-lg lg:text-[1.2rem] font-medium uppercase tracking-wider items-center">
-          <NuxtLink to="/about" class="hover:opacity-70 transition-opacity">{{ t.nav.about }}</NuxtLink>
-          <NuxtLink to="/services" class="hover:opacity-70 transition-opacity">{{ t.nav.services }}</NuxtLink>
           <NuxtLink to="/projects" class="hover:opacity-70 transition-opacity">{{ t.nav.projects }}</NuxtLink>
           <NuxtLink to="/blog" class="hover:opacity-70 transition-opacity">{{ t.nav.blog }}</NuxtLink>
+          <NuxtLink to="/about" class="hover:opacity-70 transition-opacity">{{ t.nav.about }}</NuxtLink>
         </div>
 
         <!-- منوی کشویی موبایل -->
         <div v-if="isMenuOpen" class="absolute top-12 left-0 w-full bg-[#151515] border border-white/10 rounded-2xl p-4 flex flex-col gap-4 md:hidden shadow-2xl z-40">
-          <NuxtLink @click="isMenuOpen = false" to="/about" class="text-base font-medium">{{ t.nav.about }}</NuxtLink>
-          <hr class="border-white/5" />
-          <NuxtLink @click="isMenuOpen = false" to="/services" class="text-base font-medium">{{ t.nav.services }}</NuxtLink>
-          <hr class="border-white/5" />
           <NuxtLink @click="isMenuOpen = false" to="/projects" class="text-base font-medium">{{ t.nav.projects }}</NuxtLink>
           <hr class="border-white/5" />
           <NuxtLink @click="isMenuOpen = false" to="/blog" class="text-base font-medium">{{ t.nav.blog }}</NuxtLink>
+          <hr class="border-white/5" />
+          <NuxtLink @click="isMenuOpen = false" to="/about" class="text-base font-medium">{{ t.nav.about }}</NuxtLink>
         </div>
         
-        <!-- دکمه‌های ورود، ثبت‌نام، مشاوره و زبان -->
+        <!-- دکمه‌های احراز هویت، مشاوره و زبان -->
         <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-medium z-50">
-          <NuxtLink to="/login" class="hover:opacity-70 transition-opacity px-2">{{ t.nav.login }}</NuxtLink>
-          <NuxtLink to="/register" class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors">{{ t.nav.register }}</NuxtLink>
+          
+          <!-- بررسی وضعیت لاگین به صورت ری‌اکتیو -->
+          <template v-if="!isLoggedIn">
+            <NuxtLink to="/login" class="hover:opacity-70 transition-opacity px-2">{{ t.nav.login }}</NuxtLink>
+            <NuxtLink to="/register" class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors">{{ t.nav.register }}</NuxtLink>
+          </template>
+
+          <template v-else>
+            <NuxtLink to="/dashboard" class="flex items-center gap-1 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors">
+              <svg class="w-4 h-4 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+              {{ t.nav.dashboard }}
+            </NuxtLink>
+            <button @click="handleLogout" class="hover:text-red-400 text-red-500 transition-colors px-1" :title="t.nav.logout">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+            </button>
+          </template>
+
           <NuxtLink to="/contact" class="hidden sm:inline-flex px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white">{{ t.nav.consult }}</NuxtLink>
           <button @click="toggleLang" class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition-colors">
             {{ t.nav.lang }}
@@ -55,7 +67,6 @@
 
       <!-- Hero Heading -->
       <div class="absolute top-[40%] sm:top-1/2 left-0 w-full -translate-y-1/2 sm:-translate-y-[60%] z-0 flex justify-center mt-6 sm:mt-4 md:-mt-5">
-        <!-- کلاس whitespace-nowrap برای موبایل حذف شد تا متن مخفی نشود -->
         <h1 class="reveal delay-200 hero-heading font-black uppercase tracking-tight text-[12vw] sm:text-[8vw] md:text-[8.5vw] lg:text-[9vw] text-center px-4 sm:px-0 sm:whitespace-nowrap" 
             :class="lang === 'fa' ? 'leading-tight pb-2' : 'leading-none'"
             :dir="lang === 'fa' ? 'rtl' : 'ltr'">
@@ -110,7 +121,7 @@
       </NuxtLink>
     </section>
 
-    <!-- 4. SERVICES SECTION -->
+    <!-- 4. SERVICES SECTION (این بخش کاملا حفظ شده است) -->
     <section class="bg-white text-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 relative z-10 mt-10">
       <h2 class="reveal font-black uppercase text-center text-[clamp(3rem,12vw,160px)] mb-16 sm:mb-20 md:mb-28 tracking-tight" 
           :class="lang === 'fa' ? 'leading-tight pb-3' : 'leading-none'"
@@ -227,19 +238,10 @@
                 {{ t.footer.location }}
               </li>
             </ul>
-            <div class="flex gap-4 pt-2">
-              <a href="https://github.com/sabokdasth78-source" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full bg-white/5 text-[#D7E2EA]/70 hover:bg-white/10 hover:text-cyan-400 transition-all">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              </a>
-              <a href="https://www.linkedin.com/in/hengame-sabokdast-198662414" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full bg-white/5 text-[#D7E2EA]/70 hover:bg-white/10 hover:text-cyan-400 transition-all">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-              </a>
-            </div>
           </div>
         </div>
         <div class="border-t border-[#D7E2EA]/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p class="text-[#D7E2EA]/60 text-sm">{{ t.footer.copyright }}</p>
-          <p class="text-[#D7E2EA]/60 text-sm flex items-center gap-1">{{ t.footer.developedBy }} <span class="text-red-500 animate-pulse">❤</span></p>
         </div>
       </div>
     </footer>
@@ -248,15 +250,32 @@
 
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from 'vue'
-import { useCookie, useRuntimeConfig } from '#app'
+import { useCookie, useRuntimeConfig, useRouter } from '#app'
 
 const config = useRuntimeConfig()
+const router = useRouter()
 const lang = useCookie('lang', { default: () => 'fa' })
-const isMenuOpen = ref(false) // اضافه کردن متغیر برای مدیریت منوی موبایل
+
+// گرفتن توکن یا یوزرنیم برای بررسی وضعیت ورود (reactive)
+const usernameCookie = useCookie('username')
+const tokenCookie = useCookie('access_token')
+
+// محاسبه وضعیت لاگین به صورت ری‌اکتیو (تا بلافاصله در رابط کاربری اعمال شود)
+const isLoggedIn = computed(() => !!usernameCookie.value || !!tokenCookie.value)
+
+const isMenuOpen = ref(false)
 
 // تابع تغییر زبان
 const toggleLang = () => {
   lang.value = lang.value === 'fa' ? 'en' : 'fa'
+}
+
+// تابع خروج
+const handleLogout = () => {
+  usernameCookie.value = null
+  tokenCookie.value = null
+  useCookie('refresh_token').value = null
+  router.push('/login')
 }
 
 // --- All Translations ---
@@ -265,12 +284,14 @@ const t = computed(() => {
   return {
     nav: {
       about: isEn ? 'About' : 'درباره من',
-      services: isEn ? 'Services' : 'خدمات',
       projects: isEn ? 'Projects' : 'پروژه‌ها',
       contact: isEn ? 'Contact' : 'ارتباط با من',
       blog: isEn ? 'Blog' : 'وبلاگ',
       login: isEn ? 'Login' : 'ورود',
       register: isEn ? 'Register' : 'ثبت‌نام',
+      account: isEn ? 'Account' : 'حساب کاربری',
+      logout: isEn ? 'Logout' : 'خروج',
+      dashboard: isEn ? 'Dashboard' : 'داشبورد من',
       consult: isEn ? 'Consultation' : 'دریافت مشاوره',
       lang: isEn ? 'FA' : 'EN'
     },
