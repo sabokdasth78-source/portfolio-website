@@ -33,5 +33,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: netara_nuxt/.output/public/ # آدرس جدید پوشه خروجی
-          server-dir: / 
-          danger-action: replace
+          server-dir: public_html/
