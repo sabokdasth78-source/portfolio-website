@@ -73,11 +73,25 @@ const getMediaUrl = (path) => {
 }
 
 const thumbnailImage = computed(() => {
+  // ۱. بررسی عکس شاخص در آرایه تصاویر
   if (props.project.images && props.project.images.length > 0) {
     const featured = props.project.images.find(img => img.is_featured)
-    const selectedPath = featured ? featured.image : props.project.images[0].image
-    return getMediaUrl(selectedPath)
+    if (featured && featured.image) {
+      return getMediaUrl(featured.image)
+    }
   }
+  
+  // ۲. بررسی وجود عکس mockup
+  if (props.project.mockup_image) {
+    return getMediaUrl(props.project.mockup_image)
+  }
+  
+  // ۳. در نهایت استفاده از اولین عکس موجود در آرایه
+  if (props.project.images && props.project.images.length > 0) {
+    return getMediaUrl(props.project.images[0].image)
+  }
+  
+  // اگر هیچ عکسی وجود نداشت
   return null
 })
 </script>

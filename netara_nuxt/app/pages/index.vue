@@ -113,7 +113,7 @@
       </h2>
       
       <p class="reveal delay-200 font-medium text-center leading-relaxed max-w-[560px] text-[clamp(1rem,2vw,1.35rem)] text-[#D7E2EA] opacity-80 mb-16 sm:mb-20 md:mb-24 px-4">
-        <span v-html="t.heroDesc"></span>
+        <span>{{ t.heroDesc }}</span>
       </p>
 
       <NuxtLink to="/contact" class="reveal delay-300 contact-btn px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 rounded-full text-white font-medium uppercase tracking-widest text-xs sm:text-sm md:text-base transition-transform hover:scale-105 active:scale-95">
