@@ -1,5 +1,4 @@
 <template>
-  <!-- فونت به صورت شرطی اعمال می‌شود: در حالت فارسی font-sans (وزیرمتن) و در انگلیسی font-kanit -->
   <div class="bg-[#0C0C0C] min-h-screen text-[#D7E2EA] overflow-x-clip selection:bg-purple-500/30 w-full" 
        :class="lang === 'fa' ? 'font-sans' : 'font-kanit'"
        :dir="lang === 'fa' ? 'rtl' : 'ltr'">
@@ -8,17 +7,35 @@
     <section class="relative h-screen flex flex-col justify-between overflow-x-clip pt-6 md:pt-8 px-6 md:px-10 pb-7 sm:pb-8 md:pb-10">
       
       <!-- Navbar -->
-      <nav class="reveal flex flex-wrap justify-between items-center w-full z-20 gap-4">
-        <!-- لینک‌های مسیر -->
-        <div class="flex gap-4 sm:gap-6 text-sm md:text-lg lg:text-[1.2rem] font-medium uppercase tracking-wider">
+      <nav class="reveal flex flex-wrap justify-between items-center w-full z-50 gap-4 relative">
+        
+        <!-- دکمه منوی همبرگری (موبایل) -->
+        <button @click="isMenuOpen = !isMenuOpen" class="md:hidden p-1 text-white hover:opacity-70 transition-opacity z-50">
+          <svg v-if="!isMenuOpen" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          <svg v-else class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <!-- لینک‌های مسیر (دسکتاپ) -->
+        <div class="hidden md:flex gap-4 sm:gap-6 text-sm md:text-lg lg:text-[1.2rem] font-medium uppercase tracking-wider items-center">
           <NuxtLink to="/about" class="hover:opacity-70 transition-opacity">{{ t.nav.about }}</NuxtLink>
           <NuxtLink to="/services" class="hover:opacity-70 transition-opacity">{{ t.nav.services }}</NuxtLink>
           <NuxtLink to="/projects" class="hover:opacity-70 transition-opacity">{{ t.nav.projects }}</NuxtLink>
           <NuxtLink to="/blog" class="hover:opacity-70 transition-opacity">{{ t.nav.blog }}</NuxtLink>
         </div>
+
+        <!-- منوی کشویی موبایل -->
+        <div v-if="isMenuOpen" class="absolute top-12 left-0 w-full bg-[#151515] border border-white/10 rounded-2xl p-4 flex flex-col gap-4 md:hidden shadow-2xl z-40">
+          <NuxtLink @click="isMenuOpen = false" to="/about" class="text-base font-medium">{{ t.nav.about }}</NuxtLink>
+          <hr class="border-white/5" />
+          <NuxtLink @click="isMenuOpen = false" to="/services" class="text-base font-medium">{{ t.nav.services }}</NuxtLink>
+          <hr class="border-white/5" />
+          <NuxtLink @click="isMenuOpen = false" to="/projects" class="text-base font-medium">{{ t.nav.projects }}</NuxtLink>
+          <hr class="border-white/5" />
+          <NuxtLink @click="isMenuOpen = false" to="/blog" class="text-base font-medium">{{ t.nav.blog }}</NuxtLink>
+        </div>
         
         <!-- دکمه‌های ورود، ثبت‌نام، مشاوره و زبان -->
-        <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-medium">
+        <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-medium z-50">
           <NuxtLink to="/login" class="hover:opacity-70 transition-opacity px-2">{{ t.nav.login }}</NuxtLink>
           <NuxtLink to="/register" class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors">{{ t.nav.register }}</NuxtLink>
           <NuxtLink to="/contact" class="hidden sm:inline-flex px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white">{{ t.nav.consult }}</NuxtLink>
@@ -37,8 +54,9 @@
       </div>
 
       <!-- Hero Heading -->
-      <div class="absolute top-1/2 left-0 w-full -translate-y-1/2 sm:-translate-y-[60%] z-0 overflow-hidden flex justify-center mt-6 sm:mt-4 md:-mt-5">
-        <h1 class="reveal delay-200 hero-heading font-black uppercase tracking-tight whitespace-nowrap text-[7.5vw] sm:text-[8vw] md:text-[8.5vw] lg:text-[9vw] text-center" 
+      <div class="absolute top-[40%] sm:top-1/2 left-0 w-full -translate-y-1/2 sm:-translate-y-[60%] z-0 flex justify-center mt-6 sm:mt-4 md:-mt-5">
+        <!-- کلاس whitespace-nowrap برای موبایل حذف شد تا متن مخفی نشود -->
+        <h1 class="reveal delay-200 hero-heading font-black uppercase tracking-tight text-[12vw] sm:text-[8vw] md:text-[8.5vw] lg:text-[9vw] text-center px-4 sm:px-0 sm:whitespace-nowrap" 
             :class="lang === 'fa' ? 'leading-tight pb-2' : 'leading-none'"
             :dir="lang === 'fa' ? 'rtl' : 'ltr'">
           {{ t.greeting }}
@@ -77,7 +95,6 @@
       <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png" class="reveal delay-300 absolute top-[4%] right-[1%] sm:right-[2%] md:right-[4%] w-[120px] sm:w-[160px] md:w-[210px] opacity-70" />
       <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png" class="reveal delay-400 absolute bottom-[8%] right-[3%] sm:right-[6%] md:right-[10%] w-[130px] sm:w-[170px] md:w-[220px] opacity-70" />
 
-      <!-- اصلاح لاین‌هایت و پدینگ برای جلوگیری از بریدگی فونت -->
       <h2 class="reveal hero-heading font-black uppercase tracking-tight text-center text-[clamp(3rem,12vw,160px)] mb-10 sm:mb-14 md:mb-16" 
           :class="lang === 'fa' ? 'leading-tight pb-3' : 'leading-none'"
           :dir="lang === 'fa' ? 'rtl' : 'ltr'">
@@ -176,11 +193,9 @@
       </div>
     </section>
 
-    <!-- 6. FOOTER SECTION (Home Specific) -->
+    <!-- 6. FOOTER SECTION -->
     <footer class="mt-10 border-t border-[#D7E2EA]/10 bg-[#0C0C0C] relative z-20">
-      <!-- ... (کدهای فوتر بدون تغییر) ... -->
       <div class="container mx-auto px-6 py-12" :dir="lang === 'en' ? 'ltr' : 'rtl'">
-        <!-- بخش توضیحات و لوگو و لینک ها -->
         <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
           <div class="md:col-span-5 space-y-6">
             <NuxtLink href="/" class="flex items-center gap-3">
@@ -231,15 +246,13 @@
   </div>
 </template>
 
-<!-- تگ‌های Script و Style مانند نسخه قبلی دست نخورده است -->
-
-
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useCookie, useRuntimeConfig } from '#app'
 
 const config = useRuntimeConfig()
 const lang = useCookie('lang', { default: () => 'fa' })
+const isMenuOpen = ref(false) // اضافه کردن متغیر برای مدیریت منوی موبایل
 
 // تابع تغییر زبان
 const toggleLang = () => {

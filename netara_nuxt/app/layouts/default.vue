@@ -39,7 +39,8 @@ const currentDir = computed(() => lang.value === 'en' ? 'ltr' : 'rtl')
 useHead({
   htmlAttrs: {
     lang: lang,
-    dir: currentDir
+    dir: currentDir,
+    class: 'dark' // این خط اضافه شد تا از همون ابتدا در حالت دارک لود شود و پرش رنگ نداشته باشد
   }
 })
 </script>
