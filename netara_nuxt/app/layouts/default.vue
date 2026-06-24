@@ -1,5 +1,11 @@
 <template>
-  <div :dir="currentDir" class="relative min-h-screen text-slate-900 dark:text-slate-50 font-sans selection:bg-purple-500 selection:text-white flex flex-col pt-20 transition-colors duration-300">
+  <div 
+    :dir="currentDir" 
+    :class="[
+      'relative min-h-screen text-slate-900 dark:text-slate-50 font-sans selection:bg-purple-500 selection:text-white flex flex-col transition-colors duration-300',
+      route.path !== '/' ? 'pt-20' : ''
+    ]"
+  >
     
     <div class="fixed inset-0 z-[-1] bg-slate-50 dark:bg-slate-950 transition-colors duration-300"></div>
     <div class="fixed inset-0 z-[-1] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -16,13 +22,15 @@
       <slot />
     </main>
 
-    <SiteFooter />
+    <!-- Footer فقط در صفحاتی که صفحه اصلی (/) نیستند نمایش داده می‌شود -->
+    <SiteFooter v-if="route.path !== '/'" />
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useCookie } from '#app'
 
 const route = useRoute()
 const lang = useCookie('lang', { default: () => 'fa' })

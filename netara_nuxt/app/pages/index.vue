@@ -1,8 +1,11 @@
 <template>
-  <div class="bg-[#0C0C0C] min-h-screen text-[#D7E2EA] font-kanit overflow-x-clip selection:bg-purple-500/30 w-full" :dir="lang === 'fa' ? 'rtl' : 'ltr'">
+  <!-- فونت به صورت شرطی اعمال می‌شود: در حالت فارسی font-sans (وزیرمتن) و در انگلیسی font-kanit -->
+  <div class="bg-[#0C0C0C] min-h-screen text-[#D7E2EA] overflow-x-clip selection:bg-purple-500/30 w-full" 
+       :class="lang === 'fa' ? 'font-sans' : 'font-kanit'"
+       :dir="lang === 'fa' ? 'rtl' : 'ltr'">
     
     <!-- 1. HERO SECTION -->
-    <section class="relative h-[calc(100vh-80px)] flex flex-col justify-between overflow-x-clip pt-6 md:pt-8 px-6 md:px-10 pb-7 sm:pb-8 md:pb-10">
+    <section class="relative h-screen flex flex-col justify-between overflow-x-clip pt-6 md:pt-8 px-6 md:px-10 pb-7 sm:pb-8 md:pb-10">
       
       <!-- Navbar -->
       <nav class="reveal flex flex-wrap justify-between items-center w-full z-20 gap-4">
@@ -28,15 +31,16 @@
       <!-- Center Portrait (Magnet Effect & Avatar) -->
       <div class="absolute top-1/2 sm:top-auto sm:bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:translate-y-0 z-10 w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px]"
            ref="magnetEl" @mousemove="onMouseMove" @mouseleave="onMouseLeave">
-        <!-- آواتار جدید بدون محدودیت -->
-        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Ali&backgroundColor=transparent" 
+        <img src="/avatar.webp" 
              alt="Happy Portrait" 
              class="w-full h-auto object-contain reveal delay-500 drop-shadow-[0_0_30px_rgba(255,255,255,0.05)] pointer-events-none" />
       </div>
 
       <!-- Hero Heading -->
       <div class="absolute top-1/2 left-0 w-full -translate-y-1/2 sm:-translate-y-[60%] z-0 overflow-hidden flex justify-center mt-6 sm:mt-4 md:-mt-5">
-        <h1 class="reveal delay-200 hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap text-[14vw] sm:text-[15vw] md:text-[16vw] lg:text-[17.5vw] text-center" :dir="'ltr'">
+        <h1 class="reveal delay-200 hero-heading font-black uppercase tracking-tight whitespace-nowrap text-[7.5vw] sm:text-[8vw] md:text-[8.5vw] lg:text-[9vw] text-center" 
+            :class="lang === 'fa' ? 'leading-tight pb-2' : 'leading-none'"
+            :dir="lang === 'fa' ? 'rtl' : 'ltr'">
           {{ t.greeting }}
         </h1>
       </div>
@@ -67,13 +71,16 @@
 
     <!-- 3. ABOUT SECTION -->
     <section class="relative min-h-screen flex flex-col items-center justify-center px-5 sm:px-8 md:px-10 py-20 overflow-hidden">
-      <!-- 4 Decorative Images -->
+      <!-- Decorative Images -->
       <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png" class="reveal delay-100 absolute top-[4%] left-[1%] sm:left-[2%] md:left-[4%] w-[120px] sm:w-[160px] md:w-[210px] opacity-70" />
       <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png" class="reveal delay-200 absolute bottom-[8%] left-[3%] sm:left-[6%] md:left-[10%] w-[100px] sm:w-[140px] md:w-[180px] opacity-70" />
       <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png" class="reveal delay-300 absolute top-[4%] right-[1%] sm:right-[2%] md:right-[4%] w-[120px] sm:w-[160px] md:w-[210px] opacity-70" />
       <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png" class="reveal delay-400 absolute bottom-[8%] right-[3%] sm:right-[6%] md:right-[10%] w-[130px] sm:w-[170px] md:w-[220px] opacity-70" />
 
-      <h2 class="reveal hero-heading font-black uppercase leading-none tracking-tight text-center text-[clamp(3rem,12vw,160px)] mb-10 sm:mb-14 md:mb-16" dir="ltr">
+      <!-- اصلاح لاین‌هایت و پدینگ برای جلوگیری از بریدگی فونت -->
+      <h2 class="reveal hero-heading font-black uppercase tracking-tight text-center text-[clamp(3rem,12vw,160px)] mb-10 sm:mb-14 md:mb-16" 
+          :class="lang === 'fa' ? 'leading-tight pb-3' : 'leading-none'"
+          :dir="lang === 'fa' ? 'rtl' : 'ltr'">
         {{ t.aboutHeading }}
       </h2>
       
@@ -88,7 +95,9 @@
 
     <!-- 4. SERVICES SECTION -->
     <section class="bg-white text-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 relative z-10 mt-10">
-      <h2 class="reveal font-black uppercase text-center text-[clamp(3rem,12vw,160px)] mb-16 sm:mb-20 md:mb-28 tracking-tight leading-none" dir="ltr">
+      <h2 class="reveal font-black uppercase text-center text-[clamp(3rem,12vw,160px)] mb-16 sm:mb-20 md:mb-28 tracking-tight" 
+          :class="lang === 'fa' ? 'leading-tight pb-3' : 'leading-none'"
+          :dir="lang === 'fa' ? 'rtl' : 'ltr'">
         {{ t.servicesHeading }}
       </h2>
 
@@ -110,8 +119,10 @@
     </section>
 
     <!-- 5. PROJECTS SECTION -->
-    <section class="bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 relative z-20 px-5 sm:px-8 md:px-10 py-20">
-      <h2 class="reveal hero-heading font-black uppercase text-center text-[clamp(3rem,12vw,160px)] mb-20 tracking-tight leading-none" dir="ltr">
+    <section class="bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 relative z-20 px-5 sm:px-8 md:px-10 py-20 pb-0">
+      <h2 class="reveal hero-heading font-black uppercase text-center text-[clamp(3rem,12vw,160px)] mb-20 tracking-tight" 
+          :class="lang === 'fa' ? 'leading-tight pb-3' : 'leading-none'"
+          :dir="lang === 'fa' ? 'rtl' : 'ltr'">
         {{ t.projectsHeading }}
       </h2>
 
@@ -142,7 +153,6 @@
               <div class="md:col-span-2 flex flex-col gap-4">
                 <div class="h-[clamp(130px,16vw,230px)] rounded-[30px] sm:rounded-[40px] bg-slate-800 overflow-hidden relative group">
                   <div class="absolute inset-0 bg-[#0C0C0C]/20 group-hover:bg-transparent transition-colors z-10"></div>
-                  <!-- آپدیت شده: استفاده از mockup_image یا images -->
                   <img v-if="project.mockup_image || (project.images && project.images.length > 0)" 
                        :src="getMediaUrl(project.mockup_image || project.images[0].image)" 
                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -165,8 +175,64 @@
         </div>
       </div>
     </section>
+
+    <!-- 6. FOOTER SECTION (Home Specific) -->
+    <footer class="mt-10 border-t border-[#D7E2EA]/10 bg-[#0C0C0C] relative z-20">
+      <!-- ... (کدهای فوتر بدون تغییر) ... -->
+      <div class="container mx-auto px-6 py-12" :dir="lang === 'en' ? 'ltr' : 'rtl'">
+        <!-- بخش توضیحات و لوگو و لینک ها -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
+          <div class="md:col-span-5 space-y-6">
+            <NuxtLink href="/" class="flex items-center gap-3">
+              <img src="/logo.png" alt="لوگو" class="h-12 w-12 object-contain drop-shadow-sm" />
+              <span class="text-2xl font-black tracking-tighter text-[#D7E2EA]">
+                {{ t.footer.logoPart1 }}<span class="text-cyan-500">{{ t.footer.logoPart2 }}</span>
+              </span>
+            </NuxtLink>
+            <p class="text-[#D7E2EA]/70 text-sm leading-relaxed max-w-sm">{{ t.footer.description }}</p>
+          </div>
+          <div class="md:col-span-3 space-y-4">
+            <h3 class="text-lg font-bold text-[#D7E2EA]">{{ t.footer.quickLinksTitle }}</h3>
+            <ul class="space-y-3">
+              <li><NuxtLink href="/" class="text-[#D7E2EA]/70 hover:text-cyan-400 transition-colors text-sm">{{ t.footer.linkHome }}</NuxtLink></li>
+              <li><NuxtLink href="/projects" class="text-[#D7E2EA]/70 hover:text-cyan-400 transition-colors text-sm">{{ t.footer.linkProjects }}</NuxtLink></li>
+              <li><NuxtLink href="/blog" class="text-[#D7E2EA]/70 hover:text-cyan-400 transition-colors text-sm">{{ t.footer.linkBlog }}</NuxtLink></li>
+              <li><NuxtLink href="/about" class="text-[#D7E2EA]/70 hover:text-cyan-400 transition-colors text-sm">{{ t.footer.linkAbout }}</NuxtLink></li>
+            </ul>
+          </div>
+          <div class="md:col-span-4 space-y-4">
+            <h3 class="text-lg font-bold text-[#D7E2EA]">{{ t.footer.contactTitle }}</h3>
+            <ul class="space-y-3">
+              <li class="flex items-center gap-2 text-[#D7E2EA]/70 text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <a href="mailto:sabokdasth78@gmail.com" class="hover:text-cyan-400 transition-colors">sabokdasth78@gmail.com</a>
+              </li>
+              <li class="flex items-center gap-2 text-[#D7E2EA]/70 text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                {{ t.footer.location }}
+              </li>
+            </ul>
+            <div class="flex gap-4 pt-2">
+              <a href="https://github.com/sabokdasth78-source" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full bg-white/5 text-[#D7E2EA]/70 hover:bg-white/10 hover:text-cyan-400 transition-all">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+              <a href="https://www.linkedin.com/in/hengame-sabokdast-198662414" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full bg-white/5 text-[#D7E2EA]/70 hover:bg-white/10 hover:text-cyan-400 transition-all">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-[#D7E2EA]/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-[#D7E2EA]/60 text-sm">{{ t.footer.copyright }}</p>
+          <p class="text-[#D7E2EA]/60 text-sm flex items-center gap-1">{{ t.footer.developedBy }} <span class="text-red-500 animate-pulse">❤</span></p>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
+
+<!-- تگ‌های Script و Style مانند نسخه قبلی دست نخورده است -->
+
 
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from 'vue'
@@ -195,7 +261,7 @@ const t = computed(() => {
       consult: isEn ? 'Consultation' : 'دریافت مشاوره',
       lang: isEn ? 'FA' : 'EN'
     },
-    greeting: isEn ? "Hi, I'm Ali" : "سلام، من علی هستم",
+    greeting: isEn ? "Hi, I'm Hengame" : "سلام، من هنگامه هستم",
     heroDescShort: isEn ? 'A Web Creator driven by crafting striking and unforgettable interfaces' : 'توسعه‌دهنده وب، متمرکز بر خلق رابط‌های کاربری چشم‌گیر و فراموش‌نشدنی',
     ctaBtn: isEn ? 'Contact Me' : 'تماس با من',
     aboutHeading: isEn ? 'About Me' : 'درباره من',
@@ -205,6 +271,33 @@ const t = computed(() => {
     projectsHeading: isEn ? 'Projects' : 'پروژه‌ها',
     projectsHighlight: isEn ? 'Selected Work' : 'پروژه منتخب',
     liveProjectBtn: isEn ? 'Live Project' : 'مشاهده آنلاین',
+    footer: isEn ? {
+      logoPart1: 'Net',
+      logoPart2: 'Ara',
+      description: 'Full-stack developer focused on creating modern, fast, and functional user experiences. Ready to turn your ideas into clean code and scalable products.',
+      quickLinksTitle: 'Quick Links',
+      linkHome: 'Home',
+      linkProjects: 'My Projects',
+      linkBlog: 'Blog & Articles',
+      linkAbout: 'About Me & Resume',
+      contactTitle: 'Contact Me',
+      location: 'Tehran, Iran',
+      copyright: '© 2026 All rights reserved.',
+      developedBy: 'Designed and developed with'
+    } : {
+      logoPart1: 'نت',
+      logoPart2: ' آرا ',
+      description: 'توسعه‌دهنده فول‌استک با تمرکز بر خلق تجربه‌های کاربری مدرن، سریع و کاربردی. آماده برای تبدیل ایده‌های شما به کدهای تمیز و محصولات مقیاس‌پذیر.',
+      quickLinksTitle: 'لینک‌های سریع',
+      linkHome: 'صفحه اصلی',
+      linkProjects: 'پروژه‌های من',
+      linkBlog: 'وبلاگ و مقالات',
+      linkAbout: 'درباره من و رزومه',
+      contactTitle: 'ارتباط با من',
+      location: 'تهران، ایران',
+      copyright: '© ۱۴۰۵ تمامی حقوق محفوظ است.',
+      developedBy: 'طراحی و توسعه با'
+    }
   }
 })
 
@@ -219,7 +312,6 @@ const translatedServices = computed(() => {
 })
 
 // --- API Fetching ---
-// استفاده از useLazyFetch برای جلوگیری از تایم‌اوت SSR
 const { data: projectsData, pending: pendingProjects } = await useLazyFetch('/projects/', {
   baseURL: config.public.apiBase,
   server: false, 
