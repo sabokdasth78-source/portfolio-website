@@ -5,18 +5,33 @@
     <section class="relative h-[calc(100vh-80px)] flex flex-col justify-between overflow-x-clip pt-6 md:pt-8 px-6 md:px-10 pb-7 sm:pb-8 md:pb-10">
       
       <!-- Navbar -->
-      <nav class="reveal flex justify-between items-center text-sm md:text-lg lg:text-[1.4rem] font-medium uppercase tracking-wider z-20">
-        <NuxtLink to="/about" class="hover:opacity-70 transition-opacity duration-200">{{ t.nav.about }}</NuxtLink>
-        <NuxtLink to="/services" class="hover:opacity-70 transition-opacity duration-200">{{ t.nav.services }}</NuxtLink>
-        <NuxtLink to="/projects" class="hover:opacity-70 transition-opacity duration-200">{{ t.nav.projects }}</NuxtLink>
-        <NuxtLink to="/contact" class="hover:opacity-70 transition-opacity duration-200">{{ t.nav.contact }}</NuxtLink>
+      <nav class="reveal flex flex-wrap justify-between items-center w-full z-20 gap-4">
+        <!-- لینک‌های مسیر -->
+        <div class="flex gap-4 sm:gap-6 text-sm md:text-lg lg:text-[1.2rem] font-medium uppercase tracking-wider">
+          <NuxtLink to="/about" class="hover:opacity-70 transition-opacity">{{ t.nav.about }}</NuxtLink>
+          <NuxtLink to="/services" class="hover:opacity-70 transition-opacity">{{ t.nav.services }}</NuxtLink>
+          <NuxtLink to="/projects" class="hover:opacity-70 transition-opacity">{{ t.nav.projects }}</NuxtLink>
+          <NuxtLink to="/blog" class="hover:opacity-70 transition-opacity">{{ t.nav.blog }}</NuxtLink>
+        </div>
+        
+        <!-- دکمه‌های ورود، ثبت‌نام، مشاوره و زبان -->
+        <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-medium">
+          <NuxtLink to="/login" class="hover:opacity-70 transition-opacity px-2">{{ t.nav.login }}</NuxtLink>
+          <NuxtLink to="/register" class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors">{{ t.nav.register }}</NuxtLink>
+          <NuxtLink to="/contact" class="hidden sm:inline-flex px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white">{{ t.nav.consult }}</NuxtLink>
+          <button @click="toggleLang" class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition-colors">
+            {{ t.nav.lang }}
+          </button>
+        </div>
       </nav>
 
-      <!-- Center Portrait (Magnet Effect & Happy Girl Avatar) -->
+      <!-- Center Portrait (Magnet Effect & Avatar) -->
       <div class="absolute top-1/2 sm:top-auto sm:bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:translate-y-0 z-10 w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px]"
            ref="magnetEl" @mousemove="onMouseMove" @mouseleave="onMouseLeave">
-        <img src="https://png.pngtree.com/png-clipart/20230102/original/pngtree-3d-girl-avatar-smiling-png-image_8854992.png" 
-             alt="Happy Girl Portrait" class="w-full h-auto object-contain reveal delay-500 drop-shadow-[0_0_30px_rgba(255,255,255,0.05)] pointer-events-none" />
+        <!-- آواتار جدید بدون محدودیت -->
+        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Ali&backgroundColor=transparent" 
+             alt="Happy Portrait" 
+             class="w-full h-auto object-contain reveal delay-500 drop-shadow-[0_0_30px_rgba(255,255,255,0.05)] pointer-events-none" />
       </div>
 
       <!-- Hero Heading -->
@@ -127,16 +142,23 @@
               <div class="md:col-span-2 flex flex-col gap-4">
                 <div class="h-[clamp(130px,16vw,230px)] rounded-[30px] sm:rounded-[40px] bg-slate-800 overflow-hidden relative group">
                   <div class="absolute inset-0 bg-[#0C0C0C]/20 group-hover:bg-transparent transition-colors z-10"></div>
-                  <img v-if="project.image" :src="getMediaUrl(project.image)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <!-- آپدیت شده: استفاده از mockup_image یا images -->
+                  <img v-if="project.mockup_image || (project.images && project.images.length > 0)" 
+                       :src="getMediaUrl(project.mockup_image || project.images[0].image)" 
+                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
                 <div class="h-[clamp(160px,22vw,340px)] rounded-[30px] sm:rounded-[40px] bg-slate-800 overflow-hidden relative group">
                   <div class="absolute inset-0 bg-[#0C0C0C]/20 group-hover:bg-transparent transition-colors z-10"></div>
-                  <img v-if="project.image" :src="getMediaUrl(project.image)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img v-if="project.mockup_image || (project.images && project.images.length > 0)" 
+                       :src="getMediaUrl(project.mockup_image || project.images[0].image)" 
+                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
               </div>
               <div class="md:col-span-3 h-full min-h-[300px] rounded-[30px] sm:rounded-[40px] sm:rounded-[50px] bg-slate-800 overflow-hidden relative group">
                 <div class="absolute inset-0 bg-[#0C0C0C]/20 group-hover:bg-transparent transition-colors z-10"></div>
-                <img v-if="project.image" :src="getMediaUrl(project.image)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img v-if="project.mockup_image || (project.images && project.images.length > 0)" 
+                     :src="getMediaUrl(project.mockup_image || project.images[0].image)" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
             </div>
           </div>
@@ -150,7 +172,13 @@
 import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useCookie, useRuntimeConfig } from '#app'
 
+const config = useRuntimeConfig()
 const lang = useCookie('lang', { default: () => 'fa' })
+
+// تابع تغییر زبان
+const toggleLang = () => {
+  lang.value = lang.value === 'fa' ? 'en' : 'fa'
+}
 
 // --- All Translations ---
 const t = computed(() => {
@@ -160,7 +188,12 @@ const t = computed(() => {
       about: isEn ? 'About' : 'درباره من',
       services: isEn ? 'Services' : 'خدمات',
       projects: isEn ? 'Projects' : 'پروژه‌ها',
-      contact: isEn ? 'Contact' : 'ارتباط با من'
+      contact: isEn ? 'Contact' : 'ارتباط با من',
+      blog: isEn ? 'Blog' : 'وبلاگ',
+      login: isEn ? 'Login' : 'ورود',
+      register: isEn ? 'Register' : 'ثبت‌نام',
+      consult: isEn ? 'Consultation' : 'دریافت مشاوره',
+      lang: isEn ? 'FA' : 'EN'
     },
     greeting: isEn ? "Hi, I'm Ali" : "سلام، من علی هستم",
     heroDescShort: isEn ? 'A Web Creator driven by crafting striking and unforgettable interfaces' : 'توسعه‌دهنده وب، متمرکز بر خلق رابط‌های کاربری چشم‌گیر و فراموش‌نشدنی',
@@ -186,11 +219,13 @@ const translatedServices = computed(() => {
 })
 
 // --- API Fetching ---
-const config = useRuntimeConfig()
-const { data: projectsData, pending: pendingProjects } = await useFetch('/projects/', {
+// استفاده از useLazyFetch برای جلوگیری از تایم‌اوت SSR
+const { data: projectsData, pending: pendingProjects } = await useLazyFetch('/projects/', {
   baseURL: config.public.apiBase,
+  server: false, 
   transform: (response) => response.results || response
 })
+
 const projects = computed(() => projectsData.value ? projectsData.value.slice(0, 3) : [])
 
 const getMediaUrl = (path) => {

@@ -5,7 +5,8 @@
     <div class="fixed inset-0 z-[-1] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
     <div class="fixed top-0 z-[-1] h-screen w-screen bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.15),rgba(255,255,255,0))]"></div>
 
-    <NavBar />
+    <!-- NavBar فقط در صفحاتی که صفحه اصلی (/) نیستند نمایش داده می‌شود -->
+    <NavBar v-if="route.path !== '/'" />
     
     <!-- کلاس کانتینر به صورت شرطی فقط در صفحاتی که هوم نیستند اضافه می‌شود -->
     <main 
